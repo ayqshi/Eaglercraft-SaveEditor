@@ -4,7 +4,7 @@
 
 > [!WARNING]
 > This project is currently in beta and using it will only get you as far as ONLY VIEWING a readable version of your saved data. If you would like to contribute to coding this app
-**Contact me via snapchat ayqshi**
+**contact me via 👻: @ayqshi**
 
 ## Key Features
 
