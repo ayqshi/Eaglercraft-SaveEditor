@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RePack</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(270deg, #1a1a2e, #6a0dad, #1a1a2e, #6a0dad);
+            background-size: 400% 400%;
+            animation: gradient 35s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+            color: #e0e0e0;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            background-color: rgba(30, 30, 47, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .section-header {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e0b0ff;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #6a0dad;
+            padding-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .section-header:hover {
+            color: #d1a3ff;
+        }
+
+        .card {
+            background-color: rgba(50, 50, 70, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .file-list-container {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #6a0dad;
+            border-radius: 8px;
+            background-color: #2a2a4a;
+            color: #e0b0ff;
+            scrollbar-width: thin;
+            scrollbar-color: #6a0dad #1e1e2f;
+            transition: border-color 0.3s ease;
+        }
+
+        .file-list-container:hover {
+            border-color: #d1a3ff;
+        }
+
+        .file-list-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .file-list-container::-webkit-scrollbar-track {
+            background: #1e1e2f;
+            border-radius: 8px;
+        }
+
+        .file-list-container::-webkit-scrollbar-thumb {
+            background-color: #6a0dad;
+            border-radius: 8px;
+        }
+
+        .file-list-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #4a0d8d;
+            transition: background-color 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .file-list-item:hover {
+            background-color: #5a1a9d;
+        }
+
+        .file-type {
+            background-color: #3a3a5a;
+            color: #e0b0ff;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 0.85rem;
+            margin-left: 10px;
+        }
+
+        textarea {
+            min-height: 300px;
+            font-family: 'Cascadia Code', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            resize: vertical;
+            background-color: #1f1f3f;
+            color: #e0b0ff;
+            border: 1px solid #6a0dad;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+            overflow-y: auto;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #e0b0ff;
+            box-shadow: 0 0 0 2px rgba(224, 176, 255, 0.5);
+        }
+
+        .button {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(90deg, #8a2be2, #6a0dad);
+            color: white;
+        }
+
+        .button:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .primary-button {
+            background-color: transparent;
+        }
+
+        .secondary-button {
+            background-color: transparent;
+        }
+
+        .status-message {
+            margin-top: 15px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .status-success {
+            background-color: #80deea;
+            color: #006064;
+            border: 1px solid #00838f;
+        }
+
+        .status-error {
+            background-color: #ef4444;
+            color: #991b1b;
+            border: 1px solid #991b1b;
+        }
+
+        .status-info {
+            background-color: #b39ddb;
+            color: #4527a0;
+            border: 1px solid #7e57c2;
+        }
+
+        .message-box {
+            background-color: #2a2a4a;
+            border: 1px solid #6a0dad;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            max-width: 400px;
+            text-align: center;
+            display: none;
+            color: #e0b0ff;
+        }
+
+        .message-box h3 {
+            margin-top: 0;
+            color: #e0b0ff;
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+
+        .message-box p {
+            margin-bottom: 20px;
+            color: #c0a0d0;
+        }
+
+        .message-box button {
+            background-color: #8a2be2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .message-box button:hover {
+            background-color: #6a0dad;
+        }
+
+        .message-box button:active {
+            transform: translateY(1px);
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #c0a0d0;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-3xl font-extrabold text-center text-gray-100 mb-6">RePack</h1>
+
+        <div class="card p-4 border border-gray-700 rounded-lg shadow-sm">
+            <h2 class="section-header">1. Upload EPK File</h2>
+            <input type="file" id="epkFileInput" accept=".epk" class="block w-full text-sm text-gray-300
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-full file:border-0
+                file:text-sm file:font-semibold
+                file:bg-purple-700 file:text-white
+                hover:file:bg-purple-800 mb-4">
+            <button id="decompileButton" class="button primary-button w-full">Decompile EPK</button>
+            <div id="statusMessage" class="status-message hidden"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="card p-4 border border-gray-700 rounded-lg shadow-sm">
+                <h2 class="section-header">2. Decompiled Files</h2>
+                <div id="fileList" class="file-list-container">
+                    <p class="text-gray-400 p-4 text-center">Upload an EPK file to see its contents here.</p>
+                </div>
+            </div>
+
+            <div class="card p-4 border border-gray-700 rounded-lg shadow-sm">
+                <h2 class="section-header">3. Edit File Content</h2>
+                <textarea id="fileContentEditor" class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-150 ease-in-out" placeholder="Select a file from the left to view/edit its content." disabled></textarea>
+                <div class="flex justify-end mt-4">
+                    <button id="saveChangesButton" class="button secondary-button" disabled>Save Changes</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card p-4 border border-gray-700 rounded-lg shadow-sm">
+            <h2 class="section-header">4. Re-pack & Download</h2>
+            <button id="repackButton" class="button primary-button w-full" disabled>Re-pack EPK & Download</button>
+        </div>
+
+        <div id="messageBox" class="message-box">
+            <h3 id="messageTitle"></h3>
+            <p id="messageContent"></p>
+            <button id="messageCloseBtn">OK</button>
+        </div>
+
+        <div class="footer">
+            <p>Credits: <a href="https://github.com/ayqshi" target="_blank" class="text-purple-400 hover:underline">ayqshi</a> on GitHub</p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/long@5.2.0/umd/index.min.js"></script>
+    <script src="powernbt.js"></script>
+    <script src="main-min.js"></script>
+</body>
+</html>
