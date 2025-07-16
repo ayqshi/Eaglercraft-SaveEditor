@@ -730,5 +730,5 @@ document.addEventListener("DOMContentLoaded", (() => {
         }, e.click()
     })), removeFileButton && removeFileButton.addEventListener("click", (() => {
         activeFile.name ? confirm(`Are you sure you want to remove "${activeFile.name}" from the EPK?`) && (extractedFiles.delete(activeFile.name), resetFileEditor(), displayExtractedFiles(extractedFiles), showMessageBox("File Removed", `File "${activeFile.name}" removed from the EPK in memory.`, "info"), repackButton && (repackButton.disabled = !1)) : showMessageBox("Warning", "No file selected to remove.", "warning")
-    }))
+  
 }));
