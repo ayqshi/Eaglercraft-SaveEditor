@@ -27,23 +27,23 @@
         }
 
         .container {
-            background-color: rgba(30, 30, 47, 0.9);
+            background-color: rgba(30, 30, 47, 0.95);
             border-radius: 12px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            padding: 30px;
+            padding: 40px;
             width: 100%;
             max-width: 1200px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 30px;
             transition: transform 0.3s ease;
         }
 
         .section-header {
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: 700;
             color: #e0b0ff;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             border-bottom: 2px solid #6a0dad;
             padding-bottom: 10px;
             transition: color 0.3s ease;
@@ -54,9 +54,9 @@
         }
 
         .card {
-            background-color: rgba(50, 50, 70, 0.8);
+            background-color: rgba(50, 50, 70, 0.9);
             border-radius: 10px;
-            padding: 20px;
+            padding: 25px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             transition: box-shadow 0.3s ease;
         }
@@ -125,7 +125,7 @@
         textarea {
             min-height: 300px;
             font-family: 'Cascadia Code', 'Fira Code', monospace;
-            font-size: 0.9rem;
+            font-size: 1rem;
             resize: vertical;
             background-color: #1f1f3f;
             color: #e0b0ff;
@@ -133,6 +133,7 @@
             border-radius: 8px;
             transition: border-color 0.3s ease;
             overflow-y: auto;
+            padding: 10px;
         }
 
         textarea:focus {
@@ -142,7 +143,7 @@
         }
 
         .button {
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
@@ -150,18 +151,18 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             background: linear-gradient(90deg, #8a2be2, #6a0dad);
             color: white;
+            border: none;
+            font-size: 1rem;
         }
 
         .button:hover {
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         }
 
-        .primary-button {
-            background-color: transparent;
-        }
-
-        .secondary-button {
-            background-color: transparent;
+        .button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: linear-gradient(90deg, #5a1e9e, #4a098d);
         }
 
         .status-message {
@@ -210,7 +211,7 @@
         .message-box h3 {
             margin-top: 0;
             color: #e0b0ff;
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             margin-bottom: 10px;
         }
 
@@ -243,11 +244,43 @@
             color: #c0a0d0;
             margin-top: 20px;
         }
+
+        /* New styles for improved aesthetics */
+        h1 {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .button:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(224, 176, 255, 0.5);
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .file-list-item {
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .file-list-item:hover {
+            background-color: #5a1a9d;
+            transform: scale(1.02);
+        }
+
+        .footer a {
+            color: #c0a0d0;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #e0b0ff;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="text-3xl font-extrabold text-center text-gray-100 mb-6">RePack</h1>
+        <h1 class="text-4xl font-extrabold text-center text-gray-100 mb-6">RePack</h1>
 
         <div class="card p-4 border border-gray-700 rounded-lg shadow-sm">
             <h2 class="section-header">1. Upload EPK File</h2>
@@ -258,12 +291,19 @@
                 file:bg-purple-700 file:text-white
                 hover:file:bg-purple-800 mb-4">
             <button id="decompileButton" class="button primary-button w-full">Decompile EPK</button>
+            <div class="mt-4 text-center text-sm">
+                Loaded EPK: <span id="epkName" class="font-bold text-purple-300">No EPK Loaded</span>
+            </div>
             <div id="statusMessage" class="status-message hidden"></div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="card p-4 border border-gray-700 rounded-lg shadow-sm">
                 <h2 class="section-header">2. Decompiled Files</h2>
+                <div class="flex justify-between items-center mb-4">
+                    <button id="addFileButton" class="button button-sm">Add File</button>
+                    <button id="removeFileButton" class="button button-sm bg-red-600 hover:bg-red-700">Remove Selected File</button>
+                </div>
                 <div id="fileList" class="file-list-container">
                     <p class="text-gray-400 p-4 text-center">Upload an EPK file to see its contents here.</p>
                 </div>
@@ -271,6 +311,9 @@
 
             <div class="card p-4 border border-gray-700 rounded-lg shadow-sm">
                 <h2 class="section-header">3. Edit File Content</h2>
+                <div class="mb-2 text-sm text-gray-400">
+                    Currently Editing: <span id="activeFileNameDisplay" class="font-bold text-purple-300">No file selected</span>
+                </div>
                 <textarea id="fileContentEditor" class="w-full p-3 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 transition duration-150 ease-in-out" placeholder="Select a file from the left to view/edit its content." disabled></textarea>
                 <div class="flex justify-end mt-4">
                     <button id="saveChangesButton" class="button secondary-button" disabled>Save Changes</button>
@@ -297,6 +340,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/long@5.2.0/umd/index.min.js"></script>
     <script src="powernbt.js"></script>
+    <script src="nbt.js"></script>
     <script src="main-min.js"></script>
 </body>
 </html>
