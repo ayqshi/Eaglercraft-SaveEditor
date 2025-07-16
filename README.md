@@ -1,6 +1,4 @@
-# RePack
-
-### Eaglercraft .epk file save editor
+# RePack - Eaglercraft Save Editor
 
 > [!WARNING]
 > This project is currently in beta and using it will complicated if you do not know what your doing. If you would like to contribute to programming more simplicity in this open source project, 
