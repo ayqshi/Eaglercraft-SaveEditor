@@ -495,6 +495,7 @@ function addModdingMenuListeners(data) {
     };
     if (playerScoreInput) playerScoreInput.onchange = (e) => {
         data.Player.value.Score.value = parseInt(e.target.value);
+    }
     if (playerPosXInput) playerPosXInput.onchange = (e) => {
         data.Player.value.Pos.value.value[0] = parseFloat(e.target.value); 
     };
