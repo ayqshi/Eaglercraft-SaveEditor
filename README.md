@@ -3,7 +3,7 @@
 ### Eaglercraft .epk file save editor
 
 > [!WARNING]
-> This project is currently in beta and using it will only get you as far as ONLY VIEWING a readable version of your saved data. If you would like to contribute to coding this app
+> This project is currently in beta and using it will complicated if you do not know what your doing. If you would like to contribute to programming more simplicity in this open source project, 
 **contact me via 👻: @ayqshi**
 
 ## Key Features
