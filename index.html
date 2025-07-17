@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RePack</title>
+    <title>RePack - BETA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(270deg, #1a1a2e, #6a0dad, #1a1a2e, #6a0dad);
+            background: #1B1A23;
             background-size: 400% 400%;
             animation: gradient 35s ease infinite;
             display: flex;
@@ -21,16 +21,9 @@
             color: #e0e0e0;
         }
 
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+       
 
         .container {
-            background-color: rgba(30, 30, 47, 0.95);
-            border-radius: 16px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
             padding: 40px;
             width: 100%;
             max-width: 1200px;
@@ -498,7 +491,10 @@
             </div>
         </div>
   <div class="card p-4 border border-gray-700 rounded-lg shadow-sm">
-                      <div id="moddingMenuContainer" class="hidden-by-default"></div>
+    Select your level.dat file to show this menu
+                      <div id="moddingMenuContainer" class="hidden-by-default">
+                        
+                      </div>
         </div>
         <div class="card p-4 border border-gray-700 rounded-lg shadow-sm">
             <h2 class="section-header">5. Re-pack & Download</h2>
@@ -520,7 +516,7 @@
     <script src="https://cdn.jsdelivr.net/npm/long@5.2.0/umd/index.min.js"></script>
     <script src="powernbt.js"></script>
     <script src="nbt.js"></script>
-    <script src="main.js"></script>
+    <script src="main-min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const tabButtons = document.querySelectorAll('.tab-button');
