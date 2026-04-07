@@ -1,32 +1,176 @@
-# RePack - Eaglercraft Save Editor
+# RePack — Eaglercraft Save Editor
 
-> [!WARNING]
-> This project is currently in beta and using it will complicated if you do not know what your doing. If you would like to contribute to programming more simplicity in this open source project, 
-**contact me via 👻: @ayqshi**
+> **Status: Beta**
+>
+> This project is still under active development. Expect bugs, rough edges, and incomplete features. If you are not comfortable troubleshooting issues on your own, you may want to wait for a more stable version.
+>
+> If you are interested in helping improve the project—especially usability and simplicity—contributions are welcome.
+> Reach out (snap): **@ayqshi**
 
-## Key Features
+---
 
-- **EPK Extraction: Decompile .epk archives to access their individual files.**
-- **NBT Support: Automatically parses and displays .dat files (common in Minecraft-related contexts) as human-readable JSON.**
-- **File Modification: Edit the content of NBT files (via JSON) and text-based files.**
-- **EPK Repacking: Reconstruct a new .epk archive with your modified files. Includes intelligent re-compression for GZIPped files.**
-- **Integrity Checks: Validates EPK headers/footers and performs CRC32 checks on extracted/repacked file data.** 
-- **Binary Placeholder: Shows a placeholder for other binary file types that can't be directly displayed.**
+## What This Project Is
 
-## Directions
-1. Select your world on eaglercraft > backup > save as .epk
-2. Open RePack - beta > Upload your recently saved .epk file
-3. Select any file from the decompiled list and the content will appear on the right
+**RePack** is a browser-based tool for inspecting, editing, and rebuilding `.epk` save files used in Eaglercraft.
 
-## How It Works ⚙️
+It is designed for users who want more control over their world data—whether that means exploring file contents, modifying NBT data, or understanding how `.epk` archives are structured internally.
 
-The tool runs client-side in your browser, using JavaScript. It understands the .epk format, which includes a header, version, file count (important: this is Big-Endian, while most other numerical data is Little-Endian), a table of file metadata (name, size, offset, compression type, CRC32), the actual file data blocks, and a footer.
+---
 
-It uses Pako.js for GZIP compression/decompression and NBT.js to handle .dat files. When you load an EPK, it reads this structure, decompresses files as needed, and makes them available. When you save changes and repack, it reconstructs the EPK, re-compressing files if they were originally compressed
+## Features
 
-## Key Features & Benefits ✨
+### EPK Extraction
 
-- **Browser-Based: No installation needed; works directly in your web browser**
-- **User-Friendly: Simple interface for common archive operations.**
-- **NBT Editing: Specifically designed to make editing complex NBT data in .dat files straightforward by converting them to JSON.**
-- **Robust: Includes checks for file integrity and handles various compression states.** 
+Decompile `.epk` archives and access their internal files.
+
+* View the full contents of a save
+* Understand file structure and layout
+* No external tools required
+
+---
+
+### NBT Parsing (Readable JSON)
+
+Automatically converts `.dat` (NBT) files into structured JSON.
+
+* Makes complex binary data readable
+* Easier inspection of player and world data
+* Simplifies editing workflows
+
+---
+
+### File Editing
+
+Edit supported file types directly in the browser:
+
+* JSON (NBT data)
+* Plain text files
+
+Changes are applied in real time and reflected in the repacked archive.
+
+---
+
+### EPK Repacking
+
+Rebuild a valid `.epk` archive after making edits.
+
+* Preserves original structure
+* Automatically re-compresses files when required (GZIP)
+* Designed to minimize manual intervention
+
+---
+
+### Integrity Checks
+
+Basic validation is included to reduce the chance of corruption:
+
+* Header and footer verification
+* CRC32 checks for file data consistency
+
+---
+
+### Binary File Handling
+
+Files that cannot be displayed are still preserved:
+
+* Shown as placeholders in the UI
+* Included unchanged during repacking
+
+---
+
+## Usage
+
+1. In Eaglercraft:
+
+   * Select your world
+   * Click **Backup** and export as `.epk`
+
+2. In RePack:
+
+   * Open the tool (beta)
+   * Upload your `.epk` file
+
+3. Browse and edit:
+
+   * Select a file from the extracted list
+   * Its contents will appear in the editor panel
+
+4. Repack:
+
+   * Save your changes
+   * Download the rebuilt `.epk` file
+
+---
+
+## How It Works
+
+RePack runs entirely in your browser using JavaScript. Files are processed locally and are not uploaded to any server.
+
+### EPK Format Overview
+
+An `.epk` archive contains:
+
+* A header
+* Version information
+* File count (stored as Big-Endian)
+* A metadata table for each file:
+
+  * Name
+  * Size
+  * Offset
+  * Compression type
+  * CRC32 checksum
+* File data blocks
+* A footer
+
+Most numeric values are stored as Little-Endian, except for the file count, which uses Big-Endian encoding.
+
+---
+
+### Internal Processing
+
+When loading a file:
+
+* The archive structure is parsed
+* Metadata and offsets are read
+* Files are decompressed if necessary
+* NBT data is converted into JSON
+
+When repacking:
+
+* Metadata is rebuilt
+* Files are recompressed where required
+* CRC32 values are recalculated
+* A valid `.epk` archive is generated
+
+---
+
+## Dependencies
+
+* **Pako.js** — GZIP compression and decompression
+* **NBT.js** — Parsing and handling NBT data
+
+---
+
+## Limitations
+
+* Some edge cases may fail during extraction or repacking
+* User interface is minimal and still evolving
+* Binary files cannot be edited
+* Error handling is not yet comprehensive
+
+---
+
+## Contributing
+
+Feedback and contributions are encouraged, especially in areas like:
+
+* Simplifying the user experience
+* Improving error handling
+* Expanding file support
+
+---
+
+## Notes
+
+This tool is intended for users who want direct access to and control over their save data. It prioritizes transparency and functionality over polish at this stage of development.
