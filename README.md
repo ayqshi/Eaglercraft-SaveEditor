@@ -15,8 +15,30 @@
 
 It is designed for users who want more control over their world data—whether that means exploring file contents, modifying NBT data, or understanding how `.epk` archives are structured internally.
 
----
-
+---\
+# ROADMAP
+- fix page nav for save editor
+- move unnecessary files into hidden dropdown section
+  - keep `level.dat` pinned at top
+- fix armor slot editing/management
+- allow adding/editing armor + all inventory types
+- auto-detect world version from file contents
+  - decode `file-type`
+  - detect values like `epk/world188`
+  - remove manual version prompt
+- decode/display binary + base64 files as readable text automatically
+- remove browser `prompt/alert/confirm`
+- make custom popup/modal system
+- prevent requiring dialog close after every process
+- improve wording/UI labels/dialogue across app
+  - more human-readable terminology
+- implement persistent storage systems
+  - IndexedDB
+  - Cache API
+  - cookies
+  - localStorage
+  - sessionStorage
+- improve base64 viewer/editor safety + readability
 ## Features
 
 ### EPK Extraction
